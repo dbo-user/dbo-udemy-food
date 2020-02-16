@@ -2,18 +2,21 @@ import React from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
-const SearchBar = ({ term, onTermChange}) => {
-    return <View style={styles.topLevelStyle}>
-        <Feather name='search' style={styles.levelOneAStyle}/>
-        <TextInput 
-            style={styles.levelOneBStyle}
-            placeholder='Search'
-            autoCorrect={false}
-            autoCapitalize='none'
-            value={term}
-            onChangeText={newTerm => onTermChange(newTerm)}
-        />
-    </View>
+const SearchBar = ({ term, onTermChange, onTermSubmit}) => {
+    return (
+        <View style={styles.topLevelStyle}>
+            <Feather name='search' style={styles.levelOneAStyle}/>
+            <TextInput 
+                style={styles.levelOneBStyle}
+                placeholder='Search'
+                autoCorrect={false}
+                autoCapitalize='sentences'
+                value={term}
+                onChangeText={ onTermChange } // get search term
+                onEndEditing={ onTermSubmit } // process search term
+            />
+        </View>
+    ); // end return
 }; // end SearchBar
 
 const styles = StyleSheet.create({
@@ -25,7 +28,9 @@ const styles = StyleSheet.create({
         borderWidth: 3,
         marginHorizontal: 15,
         flexDirection: 'row',
-        marginTop: 10
+        marginTop: 10,
+        marginLeft: 15,
+        marginBottom: 2
     },
     levelOneAStyle: {
         fontSize: 35,
