@@ -37,6 +37,7 @@ const SearchScreen = () => {
                     title='Big Spender $$$'
                     results={filterResultsByPrice('$$$')}
                     />
+                    
             </ScrollView>
         </>
     ); // end return
