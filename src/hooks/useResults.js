@@ -2,28 +2,33 @@ import {useEffect, useState} from 'react';
 import yelp from '../api/yelp';
 
 export default () => {
-    const [results, setResults] = useState([]); // for yelp api
+    const [results, setResults] = useState([]); // results will store yelp search results
     const [errorMessage, setErrorMessage] = useState('');
 
-    const searchApi = async searchTerm => {
-        try {
+    // make the API request to yelp using searchTerm and city
+    const searchApi = async (searchTerm, city) => {
+        // using try, catch to catch errors if request failed
+        try { // assign search results from yelp to response
             const response = await yelp.get('/search', {
-                params: {
+                params: { // spelling of params is from yelp website page - limit, term, location
                     limit: 30,
-                    term: searchTerm,
-                    location: 'emerald isle'
+                    term: searchTerm, 
+                    location: city
                 }
             });
-            setResults(response.data.businesses);
+            setResults(response.data.businesses); // update results with yelp search results
+            setErrorMessage(''); // reset error message
         } catch(err) {
-                setErrorMessage('Something went wrong, try again later.');
-        } // end try that catches errors
+                setErrorMessage('     ***Are you sure about the City???'); // just seting the message, it is displayed in SearchScreen line 43ish
+                
+        } // end try that catches request errors
     }; // end searchApi
 
-    // casue search reults to show for opening screen just one time
+    // useEffect is a hook or function that runs only 1 time at the start
+    // cause search reults to show for opening screen just one time
     useEffect (() => {
-        searchApi('restaurant');
-    }, []);
+        searchApi('restaurant', 'Emerald Isle, NC'); // call Api with these hard coded terms just to have results on the opening screen
+    }, []); // the empty array on the end means run searchApi only 1 time
 
-    return [searchApi, results, errorMessage];
+    return [searchApi, results, errorMessage]; // searchScreen needs these 3 things
 };

@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+// baseURL and Authorization from yelp https://www.yelp.com/developers/documentation/v3/business
+// Authorization is API Key - see Manage APP link
 export default axios.create({
     baseURL: 'https://api.yelp.com/v3/businesses',
     headers: {

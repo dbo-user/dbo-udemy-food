@@ -9,9 +9,10 @@ const navigator = createStackNavigator({
 }, {
     initialRouteName: 'Search',
     defaultNavigationOptions: {
-        title: 'Business Search',
+        title: 'Business Search', 
         headerTitleAlign: 'center'
     }
 }); // end const navigator
 
+// show App on screen
 export default createAppContainer(navigator);
